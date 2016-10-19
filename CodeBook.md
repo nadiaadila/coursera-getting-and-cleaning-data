@@ -1,59 +1,53 @@
-CodeBook for the tidy dataset
-=============================
+CodeBook for the tidy dataset in Assignment Getting and Cleaning Data
+======================================================================
 
-Data source
------------
+Getting Data source
+-------------------
 This dataset is derived from the "Human Activity Recognition Using Smartphones Data Set" which was originally made avaiable here: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+The dataset "UCI HAR Dataset" have been downloaded to make changes based on the question given.
 
-Feature Selection 
------------------
-I refer you to the README and features.txt files in the original dataset to learn more about the feature selection for this dataset. And there you will find the follow description:
+Introduction
+-------------
+The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
 
-The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
+The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain. See 'features_info.txt' for more details.
 
-Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). 
+Attribute Information
+----------------------
+The dataset provide few record which is :
 
-Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals). 
+* feature.txt
+* activity_labels.txt
+* subject_train.txt
+* x_train.txt
+* y_train.txt
+* subject_test.txt
+* x_test.txt
+* y_test.txt
 
-The reasoning behind my selection of features is that the assignment explicitly states "Extracts only the measurements on the mean and standard deviation for each measurement."
-To be complete, I included all variables having to do with mean or standard deviation.
+Question 1 : Merge the training and test sets to create one data set
+---------------------------------------------------------------------
+After setting the directory for the files, read all the data given in table.
+Assign each of the dataset with appropriate column names.
+Then merge the data using subjectData <- rbind().
 
-In short, for this derived dataset, these signals were used to estimate variables of the feature vector for each pattern:  
-'-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
+Question 2 : Extract measurement of mean and standard deviation only.
+----------------------------------------------------------------------
+Create meanStd to get only columns with mean() or std() in their names based on the data have been merge before.
 
-* tBodyAcc-XYZ
-* tGravityAcc-XYZ
-* tBodyAccJerk-XYZ
-* tBodyGyro-XYZ
-* tBodyGyroJerk-XYZ
-* tBodyAccMag
-* tGravityAccMag
-* tBodyAccJerkMag
-* tBodyGyroMag
-* tBodyGyroJerkMag
-* fBodyAcc-XYZ
-* fBodyAccJerk-XYZ
-* fBodyGyro-XYZ
-* fBodyAccMag
-* fBodyAccJerkMag
-* fBodyGyroMag
-* fBodyGyroJerkMag
+Question 3 : Use descriptive activity names to name the activities in the data set
+-----------------------------------------------------------------------------------
+Make sure the y_test and y_train have been merge together, assign as y_data.
+Call the activity_labels.txt and y_data is given name the column as "Activity"
 
-The set of variables that were estimated (and kept for this assignment) from these signals are: 
+Question 4 : Label the data set with descriptive variable name
+---------------------------------------------------------------
+Name subjectData as "Subject".
+Then merge all set using cbind and assign as finalData 
+Ans : finalData <- cbind(x_data, y_data, subjectData)
 
-* mean(): Mean value
-* std(): Standard deviation
-
-Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:
-
-* gravityMean
-* tBodyAccMean
-* tBodyAccJerkMean
-* tBodyGyroMean
-* tBodyGyroJerkMean
-
-Other estimates have been removed for the purpose of this excercise.
-
-Note: features are normalized and bounded within [-1,1].
-
-The resulting variable names are of the following form: tbodyaccmeanx, which means the mean value of tBodyAcc-XYZ.
+Question 5 : From the data set in step 4, creates a second,independent tidy data set with the average of each variable for each activity and each subject. 
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+Per the project instructions, we need to produce only a data set with the average of each veriable for each activity and subject (averageData)
+Lastly, create one tidy data as tidy,txt from all the cleaning dataset that have been done.
+Ans : write.table(averageData, "tidy.txt", row.name=FALSE)
