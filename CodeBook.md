@@ -43,11 +43,13 @@ Call the activity_labels.txt and y_data is given name the column as "Activity"
 Question 4 : Label the data set with descriptive variable name
 ---------------------------------------------------------------
 Name subjectData as "Subject".
-Then merge all set using cbind and assign as finalData 
+Then merge all set using cbind and assign as finalData. 
+
 Ans : finalData <- cbind(x_data, y_data, subjectData)
 
 Question 5 : From the data set in step 4, creates a second,independent tidy data set with the average of each variable for each activity and each subject. 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 Per the project instructions, we need to produce only a data set with the average of each veriable for each activity and subject (averageData)
 Lastly, create one tidy data as tidy,txt from all the cleaning dataset that have been done.
+
 Ans : write.table(averageData, "tidy.txt", row.name=FALSE)
